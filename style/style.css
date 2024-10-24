@@ -1,0 +1,17 @@
+.jumbotron {
+  background-color: rgb(195, 189, 181);
+}
+
+@media (min-width: 576px) {
+  .jumbotron {
+    padding: 0 0 2rem 0;
+  }
+}
+
+@media (min-width: 576px) {
+  .form-inline .form-control {
+    width: 25rem;
+  }
+}
+
+
