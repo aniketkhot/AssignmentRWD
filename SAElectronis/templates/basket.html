@@ -28,13 +28,25 @@
                 <div class="col-sm-2">
                     
                         <h5>lik vcjas ckj caj </h5>
-                        <form method="POST" action="{{ url_for('main.item') }}">
+                        <form method="POST" action="{{ url_for('main.deletebasketproduct') }}">
                             <input type="hidden" id="id" name="id" value="value">
                             <input type="submit" value="Delete" class="btn btn-primary mb-3">
                         </form> 
                 </div>
             </div>
 
-
+        <section>
+            <div class="row co-12 d-flex">
+                <h5 class="mt-4">Quote</h5>
+            </div>
+            
+            <div class="row co-12 d-flex mt-2 mb-4">
+                <a href= "{{url_for('main.index')}}" class="btn btn-primary mr-4">Products</a>
+                <a href= "{{url_for('main.contactUs')}}" class="btn btn-primary mr-4">Checkout</a>
+                <a href= "{{url_for('main.deletebasket')}}" class="btn btn-primary">Empty Basket</a>
+            </div>
+        </section>
+    </div>
+</section>
 
 {% endblock %}

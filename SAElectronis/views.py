@@ -29,16 +29,16 @@ def details():
 def basket():
     return render_template('basket.html')
 
-# @bp.route('/deletebasket/')
-# def deletebasket():
-#     if 'basket_id' in session:
-#         del session ['order_id']
-#     return render_template('index.html')
+@bp.route('/deletebasket/')
+def deletebasket():
+     if 'basket_id' in session:
+         del session ['order_id']
+     return render_template('index.html')
 
-# @bp.route('/deletebasketproduct/', methods = ['post'])
-# def deletebasketproduct():
-#     print ('user wants to delete tour with id={}'.format(request.form['id']))
-#     return render_template('index.html')
+@bp.route('/deletebasketproduct/', methods = ['post'])
+def deletebasketproduct():
+     print (f'user wants to delete product with id={request.form['id']}')
+     return render_template('index.html')
 
 
 @bp.route('/contactUs/', methods=['POST', 'GET'])
