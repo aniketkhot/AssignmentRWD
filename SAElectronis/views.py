@@ -29,6 +29,7 @@ def index():
 
 @bp.route('/details/<int:product_id>')
 def details(product_id):
+    print(product_id)
     for prod in products:
         if prod.id == product_id:
             return render_template('details.html', product = products)
