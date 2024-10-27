@@ -31,14 +31,22 @@
       <div class="collapse navbar-collapse">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="index.html">Home</a>
+            <a class="nav-link" href="{{ url_for('main.index') }}">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="item.html">Details</a>
+            <a class="nav-link" href="{{ url_for('main.item') }}">Details</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Basket</a>
+            <a class="nav-link" href="{{ url_for('main.basket') }}">Basket</a>
           </li>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('main.contactUs') }}">Contact us</a>
+        </li>
+        </li>
+        <li class="nav-item">
+           <a class="nav-link" href="{{ url_for('main.aboutUs') }}">About us</a>
+        </li>
         </ul>
       </div>
     </nav>
@@ -73,8 +81,12 @@
 
 
       {% endblock %}
-
-
     </div>
   </body>
+
+  <footer>
+        <div class="footer">
+          <p>Copyright 2023</p>
+        </div>
+  </footer>
 </html>

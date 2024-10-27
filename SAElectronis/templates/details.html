@@ -1,53 +1,6 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">The Universal electronic Store</a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-toggle="collapse"
-      data-target="#navbarNav"
-      aria-controls="navbarNav"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="index.html">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="item.html">Details</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Basket</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
+{% extends 'base.html' %}
 
-  <div class="jumbotron text-center">
-    <h1 class="display-4">Australia's largest electronic store</h1>
-    <p class="lead">Quality prouducts in affordable price</p>
-    <hr class="my-4" />
-      <div class=" custom-container d-flex justify-content-center">
-    <form class="form-inline justify-content-center">
-      <input class="form-control mr-sm-2" type="search" />
-      <button class="btn btn-outline-success" type="submit">Search</button>
-    </form>
-    <div class="dropdown ml-4">
-      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
-        Category
-      </a>
-    
-      <div class="dropdown-menu">
-        <a class="dropdown-item" href="#">Mobiles</a>
-        <a class="dropdown-item" href="#">Laptops</a>
-        <a class="dropdown-item" href="#">Headphones</a>
-      </div>
-    </div>
-  </div>
-  </div>
+{% block main %}
 
   <div class="container">
     <div class="row">
@@ -76,3 +29,6 @@
       </div>
     </div>
   </div>
+
+  
+{% endblock %}

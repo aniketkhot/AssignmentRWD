@@ -14,3 +14,17 @@ def item():
 @bp.route('/details/')
 def details():
     return render_template('details.html')
+
+@bp.route('/basket/')
+def basket():
+    return render_template('basket.html')
+
+@bp.route('/contactUs/')
+def contactUs():
+    return render_template('contactUs.html')
+
+@bp.route('/aboutUs/')
+def aboutUs():
+    return render_template('aboutUs.html')
+
+

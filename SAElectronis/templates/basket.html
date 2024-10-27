@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<section>  
+    <div class="container">
+        <div class="row co-12 d-flex mt-2 mb-2">
+            <h3>Shopping Basket</h3>
+        </div>
+        
+     
+            <div class="row shadow-md my-row mb-3">
+                <div class="col-sm-10 card">
+                    <h5 class="card-header">jkhdajsd</h5>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-2">
+                                <img class="img-thumbnail" src="">
+                            </div>
+                            <div class="col-10">
+                               
+                                <p class="card-text">kjhdasjhd sc j ckjas </p>   
+                            </div>  
+                        </div>                      
+                    </div>
+                </div>
+                <br><br>
+              
+                <div class="col-sm-2">
+                    
+                        <h5>lik vcjas ckj caj </h5>
+                        <form method="POST" action="{{ url_for('main.item') }}">
+                            <input type="hidden" id="id" name="id" value="value">
+                            <input type="submit" value="Delete" class="btn btn-primary mb-3">
+                        </form> 
+                </div>
+            </div>
+
+
+
+{% endblock %}
