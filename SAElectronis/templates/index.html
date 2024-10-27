@@ -3,18 +3,20 @@
   {% block main %}
    
     <div class="row">
-      <div class="col-md-5 d-flex">
+      <div class="col-md-12 d-flex">
+
+        {% for product in products %}
+        
         <div class="card shadow-lg m-5 bg-white rounded">
-          <img class="card-img-top" src="img/iphone18.jpg" alt="iphone18" />
+          <img class="card-img-top" src="{{url_for('static', filename='img/'+ product.image)}}" alt="iphone18" />
           <div class="card-body">
-            <h5 class="card-title">iphone18</h5>
-            <p class="card-text">
-              jhnkfjs djank cn amdnc m 
-            </p>
+            <h5 class="card-title">{{product.name}}</h5>
+            <p class="card-text">{{product.description}}</p>
             <a href="{{ url_for('main.item') }}" class="btn btn-primary">View Details</a>
             <button class="btn btn-success">Add to Basket</button>
           </div>
         </div>
+        {% endfor %}
         <!-- <div class="card m-4">
           <img class="card-img-top" src="img/samsungs27.webp" alt="iphone18" />
           <div class="card-body">
