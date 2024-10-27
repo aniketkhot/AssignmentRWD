@@ -15,10 +15,19 @@
 #         return f"ID: {self.id}\nStatus: {self.status}\nFirst Name: {self.first_name}\nSurname: {self.surname}\nEmail: {self.email}\nPhone: {self.phone}\nDate: {self.date}\nTours: {self.tours}\nTotal Cost: ${self.total_cost}"
 
 class Product:
-    def __init__(self, productId, productName, productReleaseDate):
+    def __init__(self, productId, productName, description, prize, CPU, GPU, camera, battery, productReleaseDate,image):
         self.productId = productId
-        self.productName = productName
+        self.name = productName
         self.productReleaseDate=productReleaseDate
+        self.description = description
+        self.prize = prize
+        self.CPU = CPU
+        self.GPU = GPU
+        self.camera = camera
+        self.battery = battery
+        self.image = image
+
+
 
     def get_category_details(self):
         return str(self)

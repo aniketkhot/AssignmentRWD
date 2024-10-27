@@ -1,10 +1,18 @@
 from flask import Blueprint, render_template, request, session
+from .model import Product
+
+
+iphone18 = Product('1', 'Apple Iphone 18', 'wolrd class snapdragon 940 chipsent And adreno GPU. With all new apple 20 bionic chipset and 100MP camera', '2000 AUD', 'apple bionic 20', 'Adreno', '100MP', '5000mah', '22 july 2018', 'iphone18.jpg')
+iphone19 = Product('2', 'Apple Iphone 19', 'wolrd class snapdragon 940 chipsent And adreno GPU. With all new apple 20 bionic chipset and 100MP camera', '2000 AUD', 'apple bionic 20', 'Adreno', '100MP', '5000mah', '22 july 2018', 'iphone18.jpg')
+
+products = [iphone18,iphone19,iphone18]
+
 
 bp = Blueprint('main', __name__)
 
 @bp.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html', products = products)
 
 
 @bp.route('/item/')
