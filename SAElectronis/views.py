@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request, session
 
 bp = Blueprint('main', __name__)
 
@@ -19,8 +19,10 @@ def details():
 def basket():
     return render_template('basket.html')
 
-@bp.route('/contactUs/')
+@bp.route('/contactUs/', methods=['POST', 'GET'])
 def contactUs():
+    print('Email: {}\nName: {}'\
+          .format(request.values.get('email'), request.values.get('name')))
     return render_template('contactUs.html')
 
 @bp.route('/aboutUs/')
