@@ -10,6 +10,8 @@ products = [iphone18,iphone19,iphone18,iphone18,iphone18,iphone19,iphone18,iphon
 
 bp = Blueprint('main', __name__)
 
+
+
 @bp.route('/')
 def index():
     return render_template('index.html', products = products)
@@ -23,14 +25,26 @@ def item(product_id):
 def details():
     return render_template('details.html')
 
-@bp.route('/basket/')
+@bp.route('/basket/', methods= ['POST', 'GET'])
 def basket():
     return render_template('basket.html')
 
+@bp.route('/deletebasket/')
+def deletebasket():
+     if 'basket_id' in session:
+         del session ['order_id']
+     return render_template('index.html')
+
+@bp.route('/deletebasketproduct/', methods = ['post'])
+def deletebasketproduct():
+     print (f'user wants to delete product with id={request.form['id']}')
+     return render_template('index.html')
+
+
 @bp.route('/contactUs/', methods=['POST', 'GET'])
 def contactUs():
-    print('Email: {}\nName: {}'\
-          .format(request.values.get('email'), request.values.get('name')))
+    print('Email: {}\nName: {}\nPhoneNumber: {}\nShippingAdress: {}'\
+          .format(request.values.get('email'), request.values.get('name'), request.values.get('phoneNumber'), request.values.get('shippingAdress')))
     return render_template('contactUs.html')
 
 @bp.route('/aboutUs/')
