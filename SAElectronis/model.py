@@ -25,6 +25,7 @@ class Product:
         self.GPU = GPU
         self.camera = camera
         self.battery = battery
+        self.productReleaseDate=productReleaseDate
         self.image = image
 
 
@@ -33,8 +34,8 @@ class Product:
         return str(self)
 
     def __repr__(self):
-        str = "ProductId {}, ProductName {}, ProductReleaseDate\n"
-        str = str.format(self.productId,self.productName,self.productReleaseDate)
+        str = "ProductId {}, ProductName {}, Description {}, Prize {}, CPU {}, GPU {}, Camera {}, Battery {}, ProductReleaseDate {},image {}\n"
+        str = str.format(self.productId,self.productName,self.description, self.prize, self.CPU, self.GPU, self.camera, self.battery,self.productReleaseDate, self.image)
         return str
 
 class User:
@@ -74,23 +75,22 @@ class ProductDetails:
         return str
     
 class Basket:
-    def __init__(self, basketId, basketLimit, productId, removeFromBasket, addToBasket):
+    def __init__(self, basketId, basketLimit, products, basketName):
         self.basketId = basketId
         self.basketLimit = basketLimit
-        self.productId = productId
-        self.removeFromBasket = removeFromBasket
-        self.addToBasket = addToBasket
+        self.products = products
+        self.basketName = basketName
 
 
     def get_User_details(self):
         return str(self)
     
     def __repr__(self):
-        str = "BasketId: {}, BasketLimit: {}, ProductId: {}, RemoveFromBAsket: {}, AddToBasket: {}\n"
-        str = str.format(self.basketId,self.basketLimit,self.productId,self.removeFromBasket,self.addToBasket)
+        str = "BasketId: {}, BasketLimit: {},Products: {}, BasketName\n"
+        str = str.format(self.basketId,self.basketLimit,self.products, self.basketName)
         return str
     
-class Basket:
+class Category:
     def __init__(self, categoryId, categoryName, categoryDetails, removeCategory, filterByCategory):
         self.categoryId = categoryId
         self.categoryName = categoryName

@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, session
-from .model import Product
+from .model import Product, Basket, Category, ProductDetails, User
 
 
 iphone18 = Product(1, 'Apple Iphone 18', 'wolrd class snapdragon 940 chipsent And adreno GPU. With all new apple 20 bionic chipset and 100MP camera', '2000 AUD', 'apple bionic 20', 'Adreno', '100MP', '5000mah', '22 july 2018', 'iphone18.jpg')
@@ -10,6 +10,12 @@ iphone22 = Product(5, 'Apple Iphone 19', 'wolrd class snapdragon 940 chipsent An
 iphone23 = Product(6, 'Apple Iphone 19', 'wolrd class snapdragon 940 chipsent And adreno GPU. With all new apple 20 bionic chipset and 100MP camera', '2000 AUD', 'apple bionic 20', 'Adreno', '100MP', '5000mah', '22 july 2018', 'iphone18.jpg')
 
 products = [iphone18,iphone19,iphone20, iphone21, iphone22  ]
+
+basket1 = Basket('1','10',[iphone18, iphone19],'scarletsBasket')
+# basket2 = Basket('2','', '2', '', '')
+# baskets = [basket1,basket2]
+
+
 
 
 bp = Blueprint('main', __name__)
@@ -32,7 +38,20 @@ def details(product_id):
 
 @bp.route('/basket/', methods= ['POST', 'GET'])
 def basket():
-    return render_template('basket.html')
+    productId = request.args.get('productId')
+
+    if 'basketId' not in session:
+        session['basketId']=1
+
+    # for i in baskets:
+    #      if int(i.basketId) == int(session['basketId']):
+    #          basket = i
+
+    if productId:
+        print(f'User requested to add tour id: {productId}')
+
+    return render_template('basket.html', somebasket = basket1, item = iphone18, price = iphone18)
+    
 
 @bp.route('/deletebasket/')
 def deletebasket():
