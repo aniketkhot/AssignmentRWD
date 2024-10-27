@@ -16,8 +16,9 @@
 
 class Product:
     def __init__(self, productId, productName, description, prize, CPU, GPU, camera, battery, productReleaseDate,image):
-        self.productId = productId
-        self.productName = productName
+        self.id = productId
+        self.name = productName
+        self.productReleaseDate=productReleaseDate
         self.description = description
         self.prize = prize
         self.CPU = CPU

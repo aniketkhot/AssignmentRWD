@@ -5,7 +5,7 @@ from .model import Product, Basket, Category, ProductDetails, User
 iphone18 = Product('1', 'Apple Iphone 18', 'wolrd class snapdragon 940 chipsent And adreno GPU. With all new apple 20 bionic chipset and 100MP camera', '2000 AUD', 'apple bionic 20', 'Adreno', '100MP', '5000mah', '22 july 2018', 'iphone18.jpg')
 iphone19 = Product('2', 'Apple Iphone 19', 'wolrd class snapdragon 940 chipsent And adreno GPU. With all new apple 20 bionic chipset and 100MP camera', '2000 AUD', 'apple bionic 20', 'Adreno', '100MP', '5000mah', '22 july 2018', 'iphone18.jpg')
 
-products = [iphone18,iphone19,iphone18]
+products = [iphone18,iphone19,iphone18,iphone18,iphone18,iphone19,iphone18,iphone18  ]
 
 basket1 = Basket('1','10',[iphone18, iphone19],'scarletsBasket')
 # basket2 = Basket('2','', '2', '', '')
@@ -23,9 +23,9 @@ def index():
     return render_template('index.html', products = products)
 
 
-@bp.route('/item/')
-def item():
-    return render_template('item.html')
+@bp.route('/item/<int:product_id>')
+def item(product_id):
+    return render_template('item.html', product_id = product_id)
 
 @bp.route('/details/')
 def details():
