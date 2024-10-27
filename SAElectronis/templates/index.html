@@ -8,12 +8,12 @@
         {% for product in products %}
         
         <div class="col-md-3 card m-1  ">
-          <img href="{{ url_for('main.item', item_id = product.id) }}" class="card-img-top" src="{{url_for('static', filename='img/'+ product.image)}}" alt="iphone18" />
+          <img class="card-img-top" src="{{url_for('static', filename='img/'+ product.image)}}" alt="iphone18" />
           <div class="card-body">
             <h6 class="card-title">{{product.name}}</h6>
             <h6 class="card-title">{{product.prize}}</h6>
             <!-- <p class="card-text">{{product.description}}</p> -->
-            <a href="{{ url_for('main.item') }}" class="btn btn-primary">View Details</a>
+            <a href="{{ url_for('main.details', product_id=product.id)}}" class="btn btn-primary">View Details</a>
             <button class="btn btn-success">Add to Basket</button>
           </div>
         </div>
