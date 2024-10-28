@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-db = SQLAlchemy()
+
 app=Flask(__name__)
 def create_app():
     
@@ -19,5 +19,5 @@ def create_app():
 
     from . import views
     app.register_blueprint(views.bp)
-    db.init_app(app)
+    
     return app

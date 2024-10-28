@@ -1,86 +1,168 @@
-from flask import Blueprint, render_template, request, session
-from .model import Product, Basket, Category, ProductDetails, User
-
-
-iphone18 = Product('1', 'Apple Iphone 18', 'wolrd class snapdragon 940 chipsent And adreno GPU. With all new apple 20 bionic chipset and 100MP camera', 2000 , 'apple bionic 20', 'Adreno', '100MP', '5000mah', '22 july 2018', 'iphone18.jpg')
-iphone19 = Product('2', 'Apple Iphone 19', 'wolrd class snapdragon 940 chipsent And adreno GPU. With all new apple 20 bionic chipset and 100MP camera', 2000, 'apple bionic 20', 'Adreno', '100MP', '5000mah', '22 july 2018', 'iphone18.jpg')
-iphone20 = Product('3', 'Apple Iphone 19', 'wolrd class snapdragon 940 chipsent And adreno GPU. With all new apple 20 bionic chipset and 100MP camera', 2000, 'apple bionic 20', 'Adreno', '100MP', '5000mah', '22 july 2018', 'iphone18.jpg')
-iphone21 = Product('4', 'Apple Iphone 19', 'wolrd class snapdragon 940 chipsent And adreno GPU. With all new apple 20 bionic chipset and 100MP camera', 2000, 'apple bionic 20', 'Adreno', '100MP', '5000mah', '22 july 2018', 'iphone18.jpg')
-iphone22 = Product('5', 'Apple Iphone 19', 'wolrd class snapdragon 940 chipsent And adreno GPU. With all new apple 20 bionic chipset and 100MP camera', 2000, 'apple bionic 20', 'Adreno', '100MP', '5000mah', '22 july 2018', 'iphone18.jpg')
-iphone23 = Product('6', 'Apple Iphone 19', 'wolrd class snapdragon 940 chipsent And adreno GPU. With all new apple 20 bionic chipset and 100MP camera', 2000, 'apple bionic 20', 'Adreno', '100MP', '5000mah', '22 july 2018', 'iphone18.jpg')
-
-products = [iphone18,iphone19,iphone20, iphone21, iphone22 ]
-
-basket1 = Basket('1','10',[iphone18, iphone19,iphone20, iphone21],'scarletsBasket',0)
-# basket2 = Basket('2','', '2', '', '')
-# baskets = [basket1,basket2]
-
-
-
+from flask import Blueprint, render_template, request, session, flash, redirect, url_for, abort
+from .model import Product, Order, order_products
+from . import db
 
 bp = Blueprint('main', __name__)
 
-
-
+# Index page displaying all products with search and filter functionality
 @bp.route('/')
 def index():
-    return render_template('index.html', products = products)
+    search_query = request.args.get('search')
+    sort_option = request.args.get('sort')
+    brand = request.args.get('brand')
 
+    # Start with base query for all products
+    query = db.select(Product)
 
+    # Apply search filter if a search term is entered
+    if search_query:
+        query = query.where(Product.name.ilike(f"%{search_query}%"))
+
+    # Apply brand filter if a brand is specified
+    if brand:
+        query = query.where(Product.brand.ilike(f"%{brand}%"))
+
+    # Apply sorting based on user selection
+    if sort_option == 'high_to_low':
+        query = query.order_by(Product.price.desc())
+    elif sort_option == 'low_to_high':
+        query = query.order_by(Product.price.asc())
+
+    products = db.session.scalars(query).all()
+    return render_template('index.html', products=products)
+
+# Product details page
 @bp.route('/details/<int:product_id>')
 def details(product_id):
-    print(product_id)
-    for prod in products:
-        if prod.id == product_id:
-            return render_template('details.html', product = products)
+    product = db.session.scalars(db.select(Product).where(Product.product_id == product_id)).first()
+    if product is None:
         return "Product not found", 404
+    return render_template('details.html', product=product)
 
+# Add product to basket
+@bp.route('/add_to_basket/<int:product_id>', methods=['POST'])
+def add_to_basket(product_id):
+    try:
+        basket_order = db.session.get(Order, session.get('order_id'))
+        
+        if not basket_order:
+            basket_order = Order(product_quantity_limit=10, total_cost=0)
+            db.session.add(basket_order)
+            db.session.commit()
+            session['order_id'] = basket_order.order_id
 
-@bp.route('/basket/', methods= ['POST', 'GET'])
+        existing_product = db.session.execute(
+            db.select(order_products).filter_by(order_id=basket_order.order_id, product_id=product_id)
+        ).fetchone()
+
+        if existing_product:
+            db.session.execute(
+                db.update(order_products)
+                .where(order_products.c.order_id == basket_order.order_id, order_products.c.product_id == product_id)
+                .values(quantity=existing_product.quantity + 1)
+            )
+        else:
+            db.session.execute(
+                order_products.insert().values(order_id=basket_order.order_id, product_id=product_id, quantity=1)
+            )
+        
+        db.session.commit()
+        flash("Product added to basket successfully", "success")
+    except Exception as e:
+        db.session.rollback()
+        flash(f"An error occurred: {str(e)}", "error")
+    finally:
+        db.session.close()
+    
+    return redirect(url_for('main.index'))
+
+# View basket
+@bp.route('/basket')
 def basket():
-    productId = request.args.get('productId')
+    order_id = session.get('order_id')
+    if order_id is None:
+        return render_template('basket.html', products=[], total_cost=0)
 
-    if 'basketId' not in session:
-        session['basketId']=1
+    order = db.session.get(Order, order_id)
+    if not order:
+        return render_template('basket.html', products=[], total_cost=0)
 
-    # for i in baskets:
-    #      if int(i.basketId) == int(session['basketId']):
-    #          basket = i
+    products = db.session.execute(
+        db.select(Product, order_products.c.quantity)
+        .join(order_products, Product.product_id == order_products.c.product_id)
+        .where(order_products.c.order_id == order_id)
+    ).all()
 
-    if productId:
-        print(f'User requested to add tour id: {productId}')
+    total_cost = sum(product.price * quantity for product, quantity in products)
+    order.total_cost = total_cost
+    db.session.commit()
 
-    
-    for d in basket1.products:
-        print("dfdfdfdfdfdff")
-        print(d.prize)
-        basket1.totalCost += d.prize 
+    return render_template('basket.html', products=products, total_cost=total_cost)
 
-    
+# Update quantity of a product in the basket
+@bp.route('/update_quantity/<int:product_id>/<string:action>', methods=['POST'])
+def update_quantity(product_id, action):
+    order_id = session.get('order_id')
+    if not order_id:
+        abort(404)
 
-    return render_template('basket.html', somebasket = basket1)
-    
+    product = db.session.get(Product, product_id)
+    if not product:
+        abort(404)
 
-@bp.route('/deletebasket/')
-def deletebasket():
-     if 'basket_id' in session:
-         del session ['order_id']
-     return render_template('index.html')
+    current_quantity = db.session.execute(
+        db.select(order_products.c.quantity)
+        .where(order_products.c.order_id == order_id, order_products.c.product_id == product_id)
+    ).scalar()
 
-@bp.route('/deletebasketproduct/', methods = ['post'])
-def deletebasketproduct():
-     print (f'user wants to delete product with id={request.form['id']}')
-     return render_template('index.html')
+    if action == "increment":
+        new_quantity = current_quantity + 1
+    elif action == "decrement" and current_quantity > 1:
+        new_quantity = current_quantity - 1
+    else:
+        new_quantity = current_quantity
 
+    db.session.execute(
+        db.update(order_products)
+        .where(order_products.c.order_id == order_id, order_products.c.product_id == product_id)
+        .values(quantity=new_quantity)
+    )
 
-@bp.route('/contactUs/', methods=['POST', 'GET'])
-def contactUs():
-    print('Email: {}\nName: {}\nPhoneNumber: {}\nShippingAdress: {}'\
-          .format(request.values.get('email'), request.values.get('name'), request.values.get('phoneNumber'), request.values.get('shippingAdress')))
-    return render_template('contactUs.html')
+    order = db.session.get(Order, order_id)
+    order.total_cost += (new_quantity - current_quantity) * product.price
+    db.session.commit()
 
-@bp.route('/aboutUs/')
-def aboutUs():
-    return render_template('aboutUs.html')
+    return redirect(url_for('main.basket'))
 
+# Remove product from basket
+@bp.route('/remove_from_basket/<int:product_id>', methods=['POST'])
+def remove_from_basket(product_id):
+    order_id = session.get('order_id')
+    if not order_id:
+        abort(404)
 
+    order = db.session.get(Order, order_id)
+    if not order:
+        abort(404)
+
+    product = db.session.get(Product, product_id)
+    if not product:
+        abort(404)
+
+    quantity = db.session.execute(
+        db.select(order_products.c.quantity)
+        .where(order_products.c.order_id == order_id, order_products.c.product_id == product_id)
+    ).scalar()
+
+    db.session.execute(
+        order_products.delete().where(
+            order_products.c.order_id == order_id,
+            order_products.c.product_id == product_id
+        )
+    )
+
+    order.total_cost -= product.price * quantity
+    db.session.commit()
+
+    flash(f'Removed {product.name} from basket.')
+    return redirect(url_for('main.basket'))

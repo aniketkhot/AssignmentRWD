@@ -1,25 +1,31 @@
 {% extends 'base.html' %}
 
-  {% block main %}
-   
-    <div class="row d-flex flex-row flex-wrap justify-content-around">
-      
-
+{% block main %}
+<section>
+  <div class="container">
+    <h3>All Products</h3>
+    <div class="row">
+      {% if products %}
         {% for product in products %}
-        
-        <div class="col-md-3 card m-1  ">
-          <img class="card-img-top" src="{{url_for('static', filename='img/'+ product.image)}}" alt="iphone18" />
-          <div class="card-body">
-            <h6 class="card-title">{{product.name}}</h6>
-            <h6 class="card-title">{{product.prize}}</h6>
-            <!-- <p class="card-text">{{product.description}}</p> -->
-            <a href="{{ url_for('main.details', product_id=product.id)}}" class="btn btn-primary">View Details</a>
-            <button class="btn btn-success">Add to Basket</button>
+          <div class="col-md-4 mb-4">
+            <div class="card">
+              <img class="card-img-top" src="{{ url_for('static', filename='img/iphone18.jpg') }}" alt="Product Image">
+              <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p class="card-text">{{ product.description }}</p>
+                <p>Price: ${{ product.price }}</p>
+                <a href="{{ url_for('main.details', product_id=product.product_id) }}" class="btn btn-primary">View Details</a>
+                <form action="{{ url_for('main.add_to_basket', product_id=product.product_id) }}" method="POST">
+                  <button class="btn btn-success mt-2">Add to Basket</button>
+                </form>
+              </div>
+            </div>
           </div>
-        </div>
         {% endfor %}
-
-      
-    </div>  
-   
-  {% endblock %}
+      {% else %}
+        <p>No products found. Try a different search or filter.</p>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endblock %}
