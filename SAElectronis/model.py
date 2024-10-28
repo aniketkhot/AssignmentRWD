@@ -75,19 +75,20 @@ class ProductDetails:
         return str
     
 class Basket:
-    def __init__(self, basketId, basketLimit, products, basketName):
+    def __init__(self, basketId, basketLimit, products, basketName, totalCost):
         self.basketId = basketId
         self.basketLimit = basketLimit
         self.products = products
         self.basketName = basketName
+        self.totalCost = totalCost
 
 
     def get_User_details(self):
         return str(self)
     
     def __repr__(self):
-        str = "BasketId: {}, BasketLimit: {},Products: {}, BasketName\n"
-        str = str.format(self.basketId,self.basketLimit,self.products, self.basketName)
+        str = "BasketId: {}, BasketLimit: {},Products: {}, BasketName: {}, TotalCost: {}\n"
+        str = str.format(self.basketId,self.basketLimit,self.products, self.basketName, self.totalCost)
         return str
     
 class Category:
