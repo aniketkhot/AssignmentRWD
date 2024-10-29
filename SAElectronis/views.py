@@ -21,23 +21,14 @@ def load_basket_quantity():
 def index():
     search_query = request.args.get('search')
     sort_option = request.args.get('sort')
-    brand = request.args.get('brand')  # Get brand parameter from URL
-    recent_launches = request.args.get('recent_launches')  # Get recent_launches parameter
-
-    # Start with base query for all products
+    brand = request.args.get('brand')  
+    recent_launches = request.args.get('recent_launches') 
     query = db.select(Product)
-
-    # Apply search filter if a search term is entered
     if search_query:
         query = query.where(Product.name.ilike(f"%{search_query}%"))
-
-    # Apply brand filter if a brand is specified
     if brand:
         query = query.where(Product.name.ilike(f"%{brand}%"))
-
-    # Apply recent launches filter with specified time frame
     if recent_launches:
-        # Define the time frame based on the recent_launches parameter
         if recent_launches == '3_months':
             time_threshold = datetime.now() - timedelta(days=90)
         elif recent_launches == '6_months':
@@ -49,15 +40,12 @@ def index():
         elif recent_launches == '5_years':
             time_threshold = datetime.now() - timedelta(days=365 * 5)
         elif recent_launches == 'all_time':
-            time_threshold = None  # No date filter for all time
+            time_threshold = None  
         else:
             time_threshold = None
-        # Filter products by release date if a valid time frame is set
         if time_threshold:
             query = query.where(Product.release_date >= time_threshold)
-            query = query.order_by(Product.release_date.desc())  # Order by release date, newest first
-
-    # Apply sorting based on user selection if recent_launches is not set
+            query = query.order_by(Product.release_date.desc())
     elif sort_option == 'high_to_low':
         query = query.order_by(Product.price.desc())
     elif sort_option == 'low_to_high':
@@ -86,7 +74,6 @@ def add_to_basket(product_id):
         db.session.commit()
         session['order_id'] = basket_order.order_id
 
-    # Check if the product is already in the order
     existing_product = db.session.execute(
         db.select(order_products).filter_by(order_id=basket_order.order_id, product_id=product_id)
     ).fetchone()
@@ -127,11 +114,9 @@ def basket():
         .where(order_products.c.order_id == order_id)
     ).all()
 
-    # Calculate the total cost and total quantity
     total_cost = sum(product.price * quantity for product, quantity in products)
     total_quantity = sum(quantity for _, quantity in products)
 
-    # Update the order with the calculated total cost and total quantity
     order.total_cost = total_cost
     order.product_quantity = total_quantity
     db.session.commit()
@@ -170,7 +155,6 @@ def update_quantity(product_id, action):
         .values(quantity=new_quantity)
     )
 
-    # Update order total cost and quantity
     order = db.session.get(Order, order_id)
     order.total_cost += quantity_change * product.price
     order.product_quantity += quantity_change
@@ -206,7 +190,7 @@ def remove_from_basket(product_id):
         )
     )
 
-    # Update order's total cost and total quantity
+    # Update total cost and total quantity
     order.total_cost -= product.price * quantity
     order.product_quantity -= quantity
     db.session.commit()
@@ -223,7 +207,6 @@ def contact():
 # Checkout route
 @bp.route('/checkout')
 def checkout():
-    # Retrieve total cost from the GET request or set default if not present
     total_cost = request.args.get('total_cost', type=float, default=0)
     return render_template('checkout.html', total_cost=total_cost)
 
@@ -231,3 +214,8 @@ def checkout():
 @bp.route('/about')
 def about():
     return render_template('aboutUs.html')
+
+
+@bp.route('/thankyou')
+def thankyou():
+    return render_template('thankyou.html')

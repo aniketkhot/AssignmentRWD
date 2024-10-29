@@ -8,6 +8,8 @@
   
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
     integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+  
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
   <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
@@ -43,7 +45,7 @@
 </nav>
 
 
-  <div class="jumbotron text-center">
+  <div class="jumbotron text-center bg-dark text-white">
     <h1 class="display-4">Australia's Largest Electronic Store</h1>
     <p class="lead">Quality Products at Affordable Prices</p>
     <hr class="my-4" />
@@ -54,7 +56,7 @@
         <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search for products..." />
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
-      <button class="btn btn-outline-secondary ml-1" type="button" data-toggle="collapse" data-target="#filterSection"
+      <button class="btn btn-outline-light ml-1" type="button" data-toggle="collapse" data-target="#filterSection"
         aria-expanded="false" aria-controls="filterSection">
         Show Filters
       </button>
@@ -64,14 +66,14 @@
     <div class="collapse" id="filterSection">
       <div class="d-flex justify-content-center mt-3">
         
-        <a href="{{ url_for('main.index', sort='low_to_high') }}" class="btn btn-outline-secondary mx-2">Price Low to
+        <a href="{{ url_for('main.index', sort='low_to_high') }}" class="btn btn-outline-light mx-2">Price Low to
           High</a>
-        <a href="{{ url_for('main.index', sort='high_to_low') }}" class="btn btn-outline-secondary mx-2">Price High to
+        <a href="{{ url_for('main.index', sort='high_to_low') }}" class="btn btn-outline-light mx-2">Price High to
           Low</a>
 
         <!-- Brand Dropdown -->
         <div class="btn-group mx-2">
-          <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown"
+          <button type="button" class="btn btn-outline-light dropdown-toggle" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             Brand
           </button>
@@ -85,7 +87,7 @@
         </div>
         <!-- Recent Launches Dropdown -->
         <div class="btn-group mx-2">
-          <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown"
+          <button type="button" class="btn btn-outline-light dropdown-toggle" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             Recent Launches
           </button>
@@ -108,12 +110,48 @@
     {% endblock %}
   </div>
 
-  <!-- Footer -->
-  <footer>
-    <div class="footer">
-      <p class="footer-para">Copyright 2024</p>
-    </div>
-  </footer>
+  
+<!-- Footer -->
+<footer class="footer bg-dark text-white pt-4 pb-2 mt-auto">
+  <div class="container">
+      <div class="row">
+          <div class="col-md-4 mb-4">
+              <h5>About Us</h5>
+              <p>Welcome to The Universal Electronic Store! We provide top-quality electronics at affordable prices, bringing you the latest gadgets and technology.</p>
+          </div>
+          
+          <div class="col-md-4 mb-4">
+              <h5>Quick Links</h5>
+              <ul class="list-unstyled">
+                  <li><a href="{{ url_for('main.index') }}" class="text-white">Home</a></li>
+                  <li><a href="{{ url_for('main.contact') }}" class="text-white">Contact Us</a></li>
+                  <li><a href="{{ url_for('main.basket') }}" class="text-white">Basket</a></li>
+                  <li><a href="{{ url_for('main.about') }}" class="text-white">About Us</a></li>
+              </ul>
+          </div>
+          
+          <div class="col-md-4 mb-4">
+              <h5>Contact Us</h5>
+              <p>Email: <a href="mailto:support@universalelectronicstore.com" class="text-white">support@universalelectronicstore.com</a></p>
+              <p>Phone: +1 (123) 456-7890</p>
+                    
+              <a href="#" class="text-white mr-2"><i class="fab fa-facebook fa-lg"></i></a>
+              <a href="#" class="text-white mr-2"><i class="fab fa-twitter fa-lg"></i></a>
+              <a href="#" class="text-white mr-2"><i class="fab fa-instagram fa-lg"></i></a>
+          </div>
+      </div>
+      <hr class="bg-light">
+      <div class="row">
+          <div class="col text-center">
+              <p class="mb-0">&copy; {{ current_year }} The Universal Electronic Store. All rights reserved.</p>
+          </div>
+      </div>
+  </div>
+</footer>
+
+
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
 
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

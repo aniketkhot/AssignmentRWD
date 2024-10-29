@@ -1,6 +1,4 @@
-.jumbotron {
-  background-color: rgb(195, 189, 181);
-}
+
 
 @media (min-width: 576px) {
   .jumbotron {
@@ -13,16 +11,17 @@
     width: 25rem;
   }
 }
-
-
-.footer {
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  background-color: rgb(195, 189, 181);
-  color: rgb(96, 36, 36);
-  text-align: center;
+.btn-outline-light {
+  color: #ffffff;
+  border-color: #dbd6d6; 
 }
+
+.btn-outline-light:hover {
+  background-color: #ececec; 
+  color: #000; 
+}
+
+
 
 
 .card-body{
@@ -49,9 +48,6 @@
   padding: 10px;
   border-radius: 5px;
   padding-top: 40px;
-}
-  .footer-para{
-  margin: 0;
 }
 
 #filterSection .btn {
