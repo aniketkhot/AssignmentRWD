@@ -26,7 +26,7 @@
                     
                     <div class="col-md-4 d-flex align-items-center justify-content-between">
                         <div class="price-section">
-                            <h5 class="text-success">Subtotal: ${{ product.price * quantity }}</h5>
+                            <h5 class="text-bold">Subtotal: ${{ product.price * quantity }}</h5>
                         </div>
 
                         <!-- Quantity and remove buttons -->
@@ -38,7 +38,7 @@
                                 <button type="submit" class="btn btn-outline-secondary" {% if quantity <= 1 %}disabled{% endif %}>-</button>
                             </form>
                             <form action="{{ url_for('main.remove_from_basket', product_id=product.product_id) }}" method="post">
-                                <button type="submit" class="btn btn-danger">Remove</button>
+                                <button type="submit" class="btn btn-outline-danger">Remove</button>
                             </form>
                         </div>
                     </div>
@@ -52,8 +52,11 @@
             
             <!-- Action Buttons -->
             <div class="row co-12 d-flex mt-2 mb-4">
-                <a href="{{ url_for('main.index') }}" class="btn btn-primary mr-4">Continue Shopping</a>
-                <a href="{{ url_for('main.index') }}" class="btn btn-success">Checkout</a>
+                <a href="{{ url_for('main.index') }}" class="btn btn-outline-primary mr-4">Continue Shopping</a>
+                <form action="{{ url_for('main.checkout') }}" method="GET">
+                    <input type="hidden" name="total_cost" value="{{ total_cost }}">
+                    <button type="submit" class="btn btn-outline-success">Checkout</button>
+                </form>
             </div>
         {% else %}
             <p>Your basket is empty. <a href="{{ url_for('main.index') }}">Browse products</a></p>

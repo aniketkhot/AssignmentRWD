@@ -49,6 +49,12 @@
   padding: 10px;
   border-radius: 5px;
   padding-top: 40px;
-.footer-para{
+}
+  .footer-para{
   margin: 0;
+}
+
+#filterSection .btn {
+  min-width: 150px;
+  font-size: 1rem;
 }

@@ -14,9 +14,9 @@
                 <h5 class="card-title">{{ product.name }}</h5>
                 <p class="card-text">{{ product.description }}</p>
                 <p>Price: ${{ product.price }}</p>
-                <a href="{{ url_for('main.details', product_id=product.product_id) }}" class="btn btn-primary">View Details</a>
+                <a href="{{ url_for('main.details', product_id=product.product_id) }}" class="btn btn-outline-primary">View Details</a>
                 <form action="{{ url_for('main.add_to_basket', product_id=product.product_id) }}" method="POST">
-                  <button class="btn btn-success mt-2">Add to Basket</button>
+                  <button class="btn btn-outline-success mt-2">Add to Basket</button>
                 </form>
               </div>
             </div>

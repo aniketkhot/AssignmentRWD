@@ -1,22 +1,58 @@
 {% extends 'base.html' %}
 
 {% block main %}
-<div>
-    <div class ="container">
-        <div class = "row">
-            <h1> NSCJAC SKCNASK</h1>
+<div class="container mt-5">
+    <h2 class="text-center mb-4">About Us</h2>
+    <p class="text-center mb-5">
+        Welcome to The Universal Electronic Store – your trusted destination for quality electronics at affordable prices.
+        We are proud to be one of Australia’s largest electronics retailers, serving customers with a vast selection of the latest gadgets, 
+        expert advice, and unparalleled customer service.
+    </p>
+    
+    <div class="row">
+        
+        <div class="col-md-6 mb-4">
+            <h4>Our Mission</h4>
+            <p>
+                At The Universal Electronic Store, our mission is simple: to make technology accessible and affordable for everyone. 
+                We believe in empowering our customers by providing them with the tools they need to stay connected, productive, 
+                and entertained in today’s fast-paced digital world.
+            </p>
         </div>
-        <div class = "row"> 
-            <div class = "col-6">
-                <p1>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p1>
-            </div>
-            <div class = "col -6">
-                <p1> Image</p1>
-            </div>
-        </div>     
+        
+        
+        <div class="col-md-6 mb-4">
+            <h4>Our Values</h4>
+            <p>
+                We are guided by a commitment to excellence, integrity, and innovation. Our team constantly seeks to bring you the best products 
+                from top brands and offer support at every step, ensuring a seamless shopping experience.
+            </p>
+        </div>
+    </div>
+
+    
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h4 class="mt-5">Why Choose Us?</h4>
+            <p>
+                Our store provides a carefully curated selection of high-quality electronics, from the latest smartphones and laptops to powerful sound systems. 
+                Here’s why we stand out:
+            </p>
+            <ul class="list-unstyled">
+                <li><i class="fas fa-check-circle text-success mr-2"></i> Competitive Prices with Great Deals</li>
+                <li><i class="fas fa-check-circle text-success mr-2"></i> Exceptional Customer Service</li>
+                <li><i class="fas fa-check-circle text-success mr-2"></i> Secure, Fast, and Reliable Shopping Experience</li>
+            </ul>
+        </div>
+    </div>
+
+
+    <!-- Contact Information -->
+    <div class="row mt-5">
+        <div class="col-md-12 text-center">
+            <h4>Get in Touch</h4>
+            <p>Have questions? We’re here to help! <a href="{{ url_for('main.contact') }}">Contact us</a> for support, or visit us in-store to experience our products firsthand.</p>
+        </div>
     </div>
 </div>
-
-
-
 {% endblock %}

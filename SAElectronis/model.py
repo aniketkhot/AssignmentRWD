@@ -1,7 +1,7 @@
 from . import db
 from datetime import date
 
-# Many-to-Many Association Table for Orders and Products
+
 order_products = db.Table(
     'order_products',
     db.Column('order_id', db.Integer, db.ForeignKey('orders.order_id'), primary_key=True),
@@ -25,6 +25,7 @@ class Product(db.Model):
     battery = db.Column(db.String(50), nullable=True)
     release_date = db.Column(db.Date, default=date.today)
     image = db.Column(db.String(100), nullable=True)
+    brand_name = db.Column(db.String(50),nullable= True)
 
     def __repr__(self):
         return f"<Product {self.product_id}: {self.name}, Price: {self.price}>"
@@ -34,7 +35,7 @@ class Order(db.Model):
     __tablename__ = 'orders'
 
     order_id = db.Column(db.Integer, primary_key=True)
-    product_quantity_limit = db.Column(db.Integer, nullable=False)
+    product_quantity = db.Column(db.Integer, nullable=False)
     total_cost = db.Column(db.Float, nullable=True)
     products = db.relationship('Product', secondary=order_products, backref='orders')
     def __repr__(self):
