@@ -3,20 +3,21 @@
 {% block main %}
 <section>
   <div class="container">
-    <h3>All Products</h3>
+    <h3 class="text-center mb-4">All Products</h3>
     <div class="row">
       {% if products %}
         {% for product in products %}
           <div class="col-md-4 mb-4">
-            <div class="card">
-              <img class="card-img-top" src="{{ url_for('static', filename='img/iphone18.jpg') }}" alt="Product Image">
+            <div class="card h-100 shadow-sm border-0">
+              <img class="card-img-top" src="{{ url_for('static', filename='img/' + product.image) }}" alt="{{ product.name }}">
               <div class="card-body">
                 <h5 class="card-title">{{ product.name }}</h5>
-                <p class="card-text">{{ product.description }}</p>
-                <p>Price: ${{ product.price }}</p>
+                <p class="card-text text-muted">{{ product.description }}</p>
+                <p><strong>Release Date:</strong> {{ product.release_date.strftime('%Y-%m-%d') }}</p>
+                <p><strong>Price:</strong> ${{ product.price }}</p>
                 <a href="{{ url_for('main.details', product_id=product.product_id) }}" class="btn btn-outline-primary">View Details</a>
-                <form action="{{ url_for('main.add_to_basket', product_id=product.product_id) }}" method="POST">
-                  <button class="btn btn-outline-success mt-2">Add to Basket</button>
+                <form action="{{ url_for('main.add_to_basket', product_id=product.product_id) }}" method="POST" class="d-inline-block">
+                  <button class="btn btn-outline-success ">Add to Basket</button>
                 </form>
               </div>
             </div>

@@ -14,7 +14,7 @@
                         <h5 class="card-header">{{ product.name }}</h5>
                         <div class="card-body d-flex">
                             <div class="col-md-3">
-                                <img class="img-thumbnail" src="{{ url_for('static', filename='img/iphone18.jpg') }}">
+                                <img class="img-thumbnail" src="{{ url_for('static', filename='img/' + product.image) }}">
                             </div>
                             <div class="col-md-9">
                                 <p class="card-text">{{ product.description }}</p>   
@@ -30,15 +30,15 @@
                         </div>
 
                         <!-- Quantity and remove buttons -->
-                        <div class="d-flex">
+                        <div class="d-flex ">
                             <form action="{{ url_for('main.update_quantity', product_id=product.product_id, action='increment') }}" method="post">
-                                <button type="submit" class="btn btn-outline-secondary">+</button>
+                                <button type="submit" class="btn btn-outline-secondary ">+</button>
                             </form>
                             <form action="{{ url_for('main.update_quantity', product_id=product.product_id, action='decrement') }}" method="post">
-                                <button type="submit" class="btn btn-outline-secondary" {% if quantity <= 1 %}disabled{% endif %}>-</button>
+                                <button type="submit" class="btn btn-outline-secondary ml-2" {% if quantity <= 1 %}disabled{% endif %}>-</button>
                             </form>
                             <form action="{{ url_for('main.remove_from_basket', product_id=product.product_id) }}" method="post">
-                                <button type="submit" class="btn btn-outline-danger">Remove</button>
+                                <button type="submit" class="btn btn-outline-danger ml-2">Remove</button>
                             </form>
                         </div>
                     </div>

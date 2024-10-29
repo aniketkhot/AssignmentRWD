@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Universal e-store</title>
+  <title>Universal Mobile-Store</title>
   
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
     integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
@@ -16,7 +16,7 @@
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
-    <a class="navbar-brand" href="#">The Universal Electronic Store</a>
+    <a class="navbar-brand font-weight-bolder" href="#">The Universal Mobile Store</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -24,10 +24,10 @@
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('main.index') }}">Home</a>
+          <a class="nav-link font-weight-bolder" href="{{ url_for('main.index') }}">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('main.basket') }}">
+          <a class="nav-link font-weight-bolder" href="{{ url_for('main.basket') }}">
             Basket
             {% if g.basket_quantity > 0 %}
               <span class="badge badge-danger">{{ g.basket_quantity }}</span>
@@ -35,18 +35,18 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('main.contact') }}">Contact Us</a>
+          <a class="nav-link font-weight-bolder" href="{{ url_for('main.contact') }}">Contact Us</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('main.about') }}">About Us</a>
+          <a class="nav-link font-weight-bolder" href="{{ url_for('main.about') }}">About Us</a>
         </li>
       </ul>
     </div>
 </nav>
 
 
-  <div class="jumbotron text-center bg-dark text-white">
-    <h1 class="display-4">Australia's Largest Electronic Store</h1>
+  <div class="jumbotron text-center bg-dark text-grey">
+    <h1 class="display-4">Australia's Largest Mobile Store</h1>
     <p class="lead">Quality Products at Affordable Prices</p>
     <hr class="my-4" />
 
@@ -58,7 +58,7 @@
       </form>
       <button class="btn btn-outline-light ml-1" type="button" data-toggle="collapse" data-target="#filterSection"
         aria-expanded="false" aria-controls="filterSection">
-        Show Filters
+        Filters
       </button>
     </div>
 
@@ -112,7 +112,7 @@
 
   
 <!-- Footer -->
-<footer class="footer bg-dark text-white pt-4 pb-2 mt-auto">
+<footer class="footer bg-dark text-white pt-4 pb-2 mt-3">
   <div class="container">
       <div class="row">
           <div class="col-md-4 mb-4">
@@ -134,7 +134,7 @@
               <h5>Contact Us</h5>
               <p>Email: <a href="mailto:support@universalelectronicstore.com" class="text-white">support@universalelectronicstore.com</a></p>
               <p>Phone: +1 (123) 456-7890</p>
-                    
+
               <a href="#" class="text-white mr-2"><i class="fab fa-facebook fa-lg"></i></a>
               <a href="#" class="text-white mr-2"><i class="fab fa-twitter fa-lg"></i></a>
               <a href="#" class="text-white mr-2"><i class="fab fa-instagram fa-lg"></i></a>
